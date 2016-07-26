@@ -3,6 +3,7 @@
 // rendering is proxied to the content node.
 
 import _ from 'lodash';
+import Snap from 'snapsvg';
 
 export default {
   type: 'match-fragment',
@@ -57,7 +58,12 @@ export default {
 
     if (labelStr) {
       label = this.container.text(0, 0, [labelStr])
-        .addClass('repeat-label');
+        .addClass('repeat-label')
+        .attr('style', 'cursor: help;');
+
+        var title = Snap().el('title');
+        title.append(Snap().text(0, 0, `repeats ${this.repeat.minimum} times in total`));
+        label.append(title);
 
       box = this.getBBox();
       labelBox = label.getBBox();
